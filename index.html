@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Peep Flap</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="shell">
+    <header class="top">
+      <h1>Peep Flap</h1>
+      <p class="best">Best <span id="best">0</span></p>
+    </header>
+
+    <div class="stage" id="stage" tabindex="0" role="application" aria-label="Peep Flap game. Press space, click or tap to flap.">
+      <canvas id="game" width="288" height="512" aria-hidden="true"></canvas>
+
+      <div class="score" id="score" aria-live="polite">0</div>
+
+      <div class="panel" id="panel">
+        <h2 id="panelTitle">Get ready</h2>
+        <p id="panelScore" hidden></p>
+        <p id="panelText">Tap to flap. Slip through the pipes.</p>
+      </div>
+    </div>
+
+    <p class="hint">Space, click or tap to flap</p>
+  </main>
+  <script src="game.js"></script>
+</body>
+</html>

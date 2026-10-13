@@ -1,0 +1,132 @@
+:root {
+  --sky: #70c5ce;
+  --pipe: #73bf2e;
+  --ink: #543847;
+  --sand: #ded895;
+  --cream: #fff8d6;
+  --grape: #4b2e83;
+  --grape-deep: #33205c;
+  --beak: #e8512b;
+  --pixel: "Press Start 2P", ui-monospace, "Courier New", monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body { height: 100%; margin: 0; }
+
+body {
+  font-family: var(--pixel);
+  color: var(--cream);
+  background:
+    linear-gradient(45deg, rgba(255,255,255,.04) 25%, transparent 25% 75%, rgba(255,255,255,.04) 75%) 0 0 / 24px 24px,
+    var(--grape);
+  display: grid;
+  place-items: center;
+  overscroll-behavior: none;
+  touch-action: manipulation;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+.shell {
+  /* stage width is derived from available height so the whole game always fits */
+  --chrome: 112px;
+  --w: min(100vw - 24px, (100dvh - var(--chrome)) * 9 / 16);
+  width: var(--w);
+  display: grid;
+  gap: 12px;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(14px, 4.2vw, 22px);
+  font-weight: 400;
+  color: var(--cream);
+  text-shadow: 3px 3px 0 var(--grape-deep);
+}
+
+.best { margin: 0; font-size: clamp(9px, 2.6vw, 12px); color: #cdb8ff; }
+.best span { color: var(--cream); }
+
+.stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  container-type: size;
+  border: 4px solid var(--ink);
+  outline-offset: 4px;
+  background: var(--sky);
+  box-shadow: 8px 8px 0 var(--grape-deep);
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  overflow: hidden;
+}
+.stage:focus-visible { outline: 3px solid var(--cream); }
+
+canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+}
+
+.score {
+  position: absolute;
+  top: 7cqh;
+  left: 0; right: 0;
+  text-align: center;
+  font-size: 11cqw;
+  color: #fff;
+  text-shadow:
+    -0.8cqw -0.8cqw 0 var(--ink), 0.8cqw -0.8cqw 0 var(--ink),
+    -0.8cqw 0.8cqw 0 var(--ink), 0.8cqw 0.8cqw 0 var(--ink),
+    0 1.6cqw 0 var(--ink);
+  pointer-events: none;
+}
+
+.panel {
+  position: absolute;
+  left: 50%; top: 40%;
+  translate: -50% -50%;
+  width: 82%;
+  padding: 5cqw 4cqw;
+  text-align: center;
+  background: var(--sand);
+  color: var(--ink);
+  border: 0.9cqw solid var(--ink);
+  box-shadow: 0 1.6cqw 0 var(--ink);
+  pointer-events: none;
+}
+.panel[hidden] { display: none; }
+.panel h2 { margin: 0 0 3cqw; font-size: 7cqw; font-weight: 400; }
+.panel p  { margin: 0; font-size: 3.6cqw; line-height: 1.7; }
+#panelScore { font-size: 4.6cqw; margin-bottom: 3cqw; }
+#panelScore[hidden] { display: none; }
+
+.hint { margin: 0; text-align: center; font-size: clamp(8px, 2.4vw, 11px); color: #cdb8ff; }
+
+.stage.hit { animation: shake .3s steps(6); }
+@keyframes shake {
+  20% { translate: -6px 0; } 40% { translate: 6px 0; }
+  60% { translate: -4px 0; } 80% { translate: 3px 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stage.hit { animation: none; }
+}
+
+/* wide, short screens: drop the hint so the stage can be a little bigger */
+@media (max-height: 520px) {
+  .shell { --chrome: 70px; }
+  .hint { display: none; }
+}
